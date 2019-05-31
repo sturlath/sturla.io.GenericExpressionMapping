@@ -42,7 +42,7 @@ namespace DataLayer
 				if (includes.Length > 0)
 				{
 					IQueryable<TEntity> set = includes
-					  .Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>
+						.Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>
 						(dbContext.Set<TEntity>(), (current, expression) => current.Include(expression));
 
 					// Here we also get "Code supposed to be unreachable"
