@@ -23,9 +23,10 @@ namespace ServiceLayer
 		{
 			try
 			{
-				var entityExpression = mapper.Map<Expression<Func<Entity, object>>[]>(includes);
+				// dto includes mapped to my entity includes
+				var entityIncludes = mapper.Map<Expression<Func<Entity, object>>[]>(includes);
 
-				var result = await repository.GetByIdAsync(id, entityExpression).ConfigureAwait(false);
+				var result = await repository.GetByIdAsync(id, entityIncludes).ConfigureAwait(false);
 
 				return mapper.Map<Dto>(result);
 			}
