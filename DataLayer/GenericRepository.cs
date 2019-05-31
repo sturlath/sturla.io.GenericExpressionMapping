@@ -33,10 +33,10 @@ namespace DataLayer
 						(current, include) => current.Include(include));
 
 				// return the result of the query using the specification's criteria expression
-				var test = queryableResultWithIncludes.AsEnumerable();
+				var result = queryableResultWithIncludes.AsEnumerable();
 				
 				// Here we get "Code supposed to be unreachable"
-				var test2 = test.ToList();
+				var neverHappens = result.ToList();
 
 				// Second attempts
 				if (includes.Length > 0)
