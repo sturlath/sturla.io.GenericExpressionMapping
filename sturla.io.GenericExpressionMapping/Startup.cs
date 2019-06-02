@@ -26,18 +26,27 @@ namespace sturla.io.GenericExpressionMapping
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-			// Auto Mapper Configurations
-			AutoMapper.Mapper.Initialize(cfg =>
+			// This was my problem! All works when I swap it out for the code after it
+			//services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+			//// Auto Mapper Configurations
+			//AutoMapper.Mapper.Initialize(cfg =>
+			//{
+			//	cfg.DisableConstructorMapping();
+			//	cfg.AddExpressionMapping();
+			//	cfg.AddProfile<CompanyProfile>();
+			//});
+
+			// Thanks to Ivan this solves my problem https://stackoverflow.com/a/56407651/1187583
+			services.AddAutoMapper(cfg =>
 			{
 				cfg.DisableConstructorMapping();
 				cfg.AddExpressionMapping();
 				cfg.AddProfile<CompanyProfile>();
-			});
+			}, AppDomain.CurrentDomain.GetAssemblies());
 
 #if DEBUG
 			// Validates the mapping
-			AutoMapper.Mapper.AssertConfigurationIsValid();
+			//AutoMapper.Mapper.AssertConfigurationIsValid();
 #endif
 
 			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
