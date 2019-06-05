@@ -19,7 +19,7 @@ namespace ServiceLayer
 			this.mapper = mapper;
 		}
 
-		public async Task<Dto> GetByIdAsync(int id, Expression<Func<Dto, object>>[] includes )
+		public async Task<Dto> GetByIdAsync(int id, params Expression<Func<Dto, object>>[] includes )
 		{
 			try
 			{

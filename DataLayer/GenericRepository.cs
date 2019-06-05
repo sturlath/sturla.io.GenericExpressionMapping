@@ -17,7 +17,7 @@ namespace DataLayer
 			this.dbContext = dbContext;
 		}
 
-		public async Task<TEntity> GetByIdAsync(int id, Expression<Func<TEntity, object>>[] includes = null)
+		public async Task<TEntity> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes)
 		{
 			try
 			{

@@ -31,13 +31,8 @@ namespace sturla.io.GenericExpressionMapping.Controllers
 				// I want to be able to include the connected (seeded) Employees here!
 			}
 
-			// The following code does not work and throws "Code supposed to be unreachable" in GenericRepository.cs
-
-			// The included tables I want to control from my controller
-			Expression<Func<CompanyDto, object>>[] includes = { x => x.Employees, x => x.Cars };
-
 			// Get all the connected Employees and Cars
-			var companyDto2 = await service.GetByIdAsync(1, includes).ConfigureAwait(false);
+			var companyDto2 = await service.GetByIdAsync(1, x => x.Employees, x => x.Cars ).ConfigureAwait(false);
 
 			if (companyDto2.Employees.Count == 0)
 			{
